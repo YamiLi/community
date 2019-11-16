@@ -12,3 +12,10 @@ body{
     float: right;
     margin-bottom: 15px;
 }
+
+/*
+    未登录错误信息提示
+ */
+span.errorMsg{
+    color: red;
+}
