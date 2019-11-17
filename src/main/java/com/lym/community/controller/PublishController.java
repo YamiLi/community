@@ -31,12 +31,31 @@ public class PublishController {
     @RequestMapping("/doPublish")
     public String doPublish(Question question, HttpServletRequest request, Model model) {
         User user = (User) request.getSession().getAttribute("user");
+        question.setGmt_create(System.currentTimeMillis());
+        question.setGmt_modified(question.getGmt_create());
+        question.setCreator(user.getId());
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tags",question.getTags());
+        if(question.getTitle() == null || question.getTitle().equals("")){
+            model.addAttribute("errorMsg", "标题不能为空");
+            return "publish";
+        }
+
+        if(question.getDescription() == null || question.getDescription().equals("")){
+            model.addAttribute("errorMsg", "问题补充不能为空");
+            return "publish";
+        }
+
+        if(question.getTags() == null || question.getTags().equals("")){
+            model.addAttribute("errorMsg", "标签不能为空");
+            return "publish";
+        }
+
         if (user == null) {
             model.addAttribute("errorMsg", "用户未登录");
             return "publish";
         }
-        question.setGmt_create(System.currentTimeMillis());
-        question.setGmt_modified(question.getGmt_create());
         questionMapper.create(question);
         return "redirect:/";
     }

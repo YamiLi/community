@@ -1,11 +1,10 @@
-package com.lym.community.model;
+package com.lym.community.dto;
 
-
+import com.lym.community.model.User;
 import lombok.Data;
-import org.apache.ibatis.annotations.Insert;
 
 @Data
-public class Question {
+public class QuestionDto {
 
     private int id;
     private String title;
@@ -17,5 +16,5 @@ public class Question {
     private Integer commentCount;
     private Integer viewCount;
     private Integer likeCount;
-
+    private User user;
 }
