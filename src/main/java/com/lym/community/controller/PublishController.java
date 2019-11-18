@@ -31,8 +31,8 @@ public class PublishController {
     @RequestMapping("/doPublish")
     public String doPublish(Question question, HttpServletRequest request, Model model) {
         User user = (User) request.getSession().getAttribute("user");
-        question.setGmt_create(System.currentTimeMillis());
-        question.setGmt_modified(question.getGmt_create());
+        question.setGmtCreate(System.currentTimeMillis());
+        question.setGmtModified(question.getGmtCreate());
         question.setCreator(user.getId());
         model.addAttribute("title",question.getTitle());
         model.addAttribute("description",question.getDescription());

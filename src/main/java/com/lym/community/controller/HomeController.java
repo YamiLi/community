@@ -40,6 +40,10 @@ public class HomeController {
         }
 
         List<QuestionDto> allQuestion = questionService.findAllQuestion();
+        for (QuestionDto questionDto : allQuestion) {
+            questionDto.setTitle("标题1");
+        }
+
         models.addAttribute("allQuestion",allQuestion);
         return "index";
     }

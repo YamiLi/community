@@ -11,8 +11,8 @@ public class Question {
     private String title;
     private String description;
     private String tags;
-    private Long gmt_create;
-    private Long gmt_modified;
+    private Long gmtCreate;
+    private Long gmtModified;
     private Integer creator;
     private Integer commentCount;
     private Integer viewCount;

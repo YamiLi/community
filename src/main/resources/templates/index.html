@@ -64,11 +64,12 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
+                    <h4 class="media-heading" th:text="${question.title}"></h4>
                     坚持。
                     <span class="text-color-999"><span th:text="${question.user.name}"></span>发起了问题 • <span
                             th:text="${question.commentCount}"></span>
-                    个回复 • <span th:text="${question.viewCount}"></span> 次浏览 • 13小时前
+                    个回复 • <span th:text="${question.viewCount}"></span> 次浏览 • <span
+                                th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></span>
                     </span>
                 </div>
             </div>
