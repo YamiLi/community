@@ -1,12 +1,9 @@
 package com.lym.community.service;
 
-import com.lym.community.dto.QuestionDto;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.lym.community.dto.PageDto;
 
 public interface QuestionService {
 
-    List<QuestionDto> findAllQuestion();
+    PageDto findAllQuestion(Integer page, Integer size);
 
 }

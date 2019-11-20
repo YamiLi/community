@@ -1,5 +1,6 @@
 package com.lym.community.controller;
 
+import com.lym.community.dto.PageDto;
 import com.lym.community.dto.QuestionDto;
 import com.lym.community.mapper.UserMapper;
 import com.lym.community.model.User;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +25,9 @@ public class HomeController {
     private QuestionService questionService;
 
     @RequestMapping("/")
-    public String index(HttpServletRequest request,Model models) {
+    public String index(HttpServletRequest request, Model models,
+                        @RequestParam(name = "page",defaultValue = "1") Integer page,
+                        @RequestParam(name = "size",defaultValue = "3") Integer size) {
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length != 0) {
@@ -39,12 +43,8 @@ public class HomeController {
             }
         }
 
-        List<QuestionDto> allQuestion = questionService.findAllQuestion();
-        for (QuestionDto questionDto : allQuestion) {
-            questionDto.setTitle("标题1");
-        }
-
-        models.addAttribute("allQuestion",allQuestion);
+        PageDto pageDto = questionService.findAllQuestion(page,size);
+        models.addAttribute("pageDto",pageDto);
         return "index";
     }
 

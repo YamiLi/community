@@ -1,5 +1,6 @@
 package com.lym.community.service.impl;
 
+import com.lym.community.dto.PageDto;
 import com.lym.community.dto.QuestionDto;
 import com.lym.community.mapper.QuestionMapper;
 import com.lym.community.mapper.UserMapper;
@@ -23,9 +24,11 @@ public class QuestionServiceImpl implements QuestionService {
     private QuestionMapper questionMapper;
 
     @Override
-    public List<QuestionDto> findAllQuestion() {
+    public PageDto findAllQuestion(Integer page, Integer size) {
+        Integer offset = (page - 1) * size;
         List<QuestionDto> list = new ArrayList<>();
-        List<Question> allQuestion = questionMapper.findAllQuestion();
+        List<Question> allQuestion = questionMapper.findAllQuestion(offset,size);
+        PageDto pageDto = new PageDto();
         for (Question question : allQuestion) {
             User user = userMapper.findById(question.getCreator());
             QuestionDto questionDto = new QuestionDto();
@@ -33,7 +36,9 @@ public class QuestionServiceImpl implements QuestionService {
             questionDto.setUser(user);
             list.add(questionDto);
         }
-
-        return list;
+        pageDto.setQuestions(list);
+        Integer totalCount = questionMapper.count();
+        pageDto.setPage(totalCount,page,size);
+        return pageDto;
     }
 }
