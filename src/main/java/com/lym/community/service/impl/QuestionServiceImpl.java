@@ -25,10 +25,20 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public PageDto findAllQuestion(Integer page, Integer size) {
+        PageDto pageDto = new PageDto();
+        Integer totalCount = questionMapper.count();
+        pageDto.setPage(totalCount,page,size);
+        if(page<1){
+            page = 1;
+        }
+        if(page>pageDto.getTotalPage()){
+            page = pageDto.getTotalPage();
+        }
+
+
         Integer offset = (page - 1) * size;
         List<QuestionDto> list = new ArrayList<>();
         List<Question> allQuestion = questionMapper.findAllQuestion(offset,size);
-        PageDto pageDto = new PageDto();
         for (Question question : allQuestion) {
             User user = userMapper.findById(question.getCreator());
             QuestionDto questionDto = new QuestionDto();
@@ -37,8 +47,6 @@ public class QuestionServiceImpl implements QuestionService {
             list.add(questionDto);
         }
         pageDto.setQuestions(list);
-        Integer totalCount = questionMapper.count();
-        pageDto.setPage(totalCount,page,size);
         return pageDto;
     }
 }

@@ -16,12 +16,21 @@ public class PageDto {
     private boolean showEndPage;
 
     private Integer currentPage;
+    private Integer totalPage;
     private List<Integer> pages = new ArrayList<>();
 
 
     public void setPage(Integer totalCount, Integer page, Integer size) {
+
+        totalPage = totalCount % size == 0 ? totalCount / size : (totalCount / size) + 1;
+
+        if(page<1){
+            page = 1;
+        }
+        if(page>totalPage){
+            page = totalPage;
+        }
         this.currentPage = page;
-        Integer totalPage = totalCount % size == 0 ? totalCount / size : (totalCount / size) + 1;
         pages.add(page);
         for (int i = 1; i <= 3; i++) {
             if(page - i > 0){
@@ -32,17 +41,16 @@ public class PageDto {
             }
 
         }
-
         //是否展示上一页
         if (page == 1){
             showPrevious = false;
         }else{
-            showNext = true;
+            showPrevious = true;
         }
         if (page.equals(totalPage)){
             showNext = false;
         }else {
-            showNext = false;
+            showNext = true;
         }
         //是否展示首页
         if(pages.contains(1)){
