@@ -1,4 +1,4 @@
-body{
+body {
     background-color: #efefef;
 }
 
@@ -8,7 +8,7 @@ body{
     margin: 30px;
 }
 
-.btn-publish{
+.btn-publish {
     float: right;
     margin-bottom: 15px;
 }
@@ -16,17 +16,21 @@ body{
 /*
     未登录错误信息提示
  */
-span.errorMsg{
+span.errorMsg {
     color: red;
 }
 
-.media-object{
+.media-object {
     width: 39px;
     height: 39px;
 }
 
-.text-color-999{
+.text-color-999 {
     font-size: 12px;
     font-weight: normal;
     color: #999;
+}
+
+.profile .section {
+    margin-top: 15px;
 }
